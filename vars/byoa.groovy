@@ -90,7 +90,7 @@ def removeAgent(String nodeName) {
   folder = Jenkins.instance.getItemByFullName(folderName)
   folder.getProperties().replace(new SecurityGrantsFolderProperty(Collections.<SecurityGrant>emptyList()));
   folder.save()
-  
+
   Slave node = Jenkins.instance.getNode(nodeName)
-  Jenkins.instance.removeNode(nodeName)
+  Jenkins.instance.removeNode(node)
 }
