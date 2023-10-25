@@ -80,6 +80,7 @@ def addAgentToFolder(String nodeName) {
   folder.getProperties().get(SecurityGrantsFolderProperty.class).addSecurityGrant(grant);
   folder.save()
   print "Agent " + nodeName + " has been added to " + folderName + " successfully."
+  return true
 }
 
 def removeAgent(String nodeName) {
@@ -89,6 +90,7 @@ def removeAgent(String nodeName) {
   folder = Jenkins.instance.getItemByFullName(folderName)
   folder.getProperties().replace(new SecurityGrantsFolderProperty(Collections.<SecurityGrant>emptyList()));
   folder.save()
-
+  
+  Slave node = Jenkins.instance.getNode(nodeName)
   Jenkins.instance.removeNode(nodeName)
 }
