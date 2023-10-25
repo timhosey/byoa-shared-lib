@@ -5,7 +5,7 @@ import com.cloudbees.hudson.plugins.folder.*
 import com.cloudbees.jenkins.plugins.foldersplus.*
 
 def add(String nodeName) {
-  String folderName = currentBuild.rawBuild.getParent().getFullName();
+  String folderName = currentBuild.rawBuild.getParent().getParent().getFullName();
   print "Working on " + folderName
   // Slave node = Jenkins.instance.getNode(nodeName)
   // node.getNodeProperties().add(new SecurityTokensNodeProperty(false));
