@@ -72,12 +72,23 @@ def addAgentToFolder(String nodeName) {
   SecurityGrant grant = token.issue(request);
 
   folder = Jenkins.instance.getItemByFullName(folderName)
-  if (jenkins.model.Jenkins.instance.getItemByFullName(folderName) == null) {
-    folder = Jenkins.instance.createProject(Folder.class, folderName)
-  }
+  // if (jenkins.model.Jenkins.instance.getItemByFullName(folderName) == null) {
+  //   folder = Jenkins.instance.createProject(Folder.class, folderName)
+  // }
 
   folder.getProperties().replace(new SecurityGrantsFolderProperty(Collections.<SecurityGrant>emptyList()));
   folder.getProperties().get(SecurityGrantsFolderProperty.class).addSecurityGrant(grant);
   folder.save()
   print "Agent " + nodeName + " has been added to " + folderName + " successfully."
+}
+
+def removeAgent(String nodeName) {
+  String folderName = currentBuild.rawBuild.getParent().getParent().getFullName();
+  print "Working from folder " + folderName + "..."
+  
+  folder = Jenkins.instance.getItemByFullName(folderName)
+  folder.getProperties().replace(new SecurityGrantsFolderProperty(Collections.<SecurityGrant>emptyList()));
+  folder.save()
+
+  Jenkins.instance.removeNode(nodeName)
 }
